@@ -1,3 +1,10 @@
+
+
+![brave_JB4mMcuIj3](https://github.com/Ulkio/pokedex/assets/37216016/fc7c6da8-153e-4597-8fbe-617e75901656)
+
+
+
+
 ![reactjs-vite-tailwindcss-boilerplate](https://user-images.githubusercontent.com/16243531/217138979-b854309c-4742-4275-a705-f9fec5158217.jpg)
 
 # React Tailwindcss Boilerplate build with Vite
