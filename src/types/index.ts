@@ -3,37 +3,37 @@ export interface PokemonBase {
     url: string
 }
 export interface Pokemon {
-    abilities: Ability[]
-    base_experience: number
+    abilities?: Ability[]
+    base_experience?: number
     cries: Cries
-    forms: Form[]
-    game_indices: GameIndex[]
-    height: number
-    held_items: HeldItem[]
+    forms?: Form[]
+    game_indices?: GameIndex[]
+    height?: number
+    held_items?: HeldItem[]
     id: number
-    is_default: boolean
-    location_area_encounters: string
-    moves: Move[]
+    is_default?: boolean
+    location_area_encounters?: string
+    moves?: Move[]
     name: string
-    order: number
-    past_abilities: PastAbility[]
-    past_types: PastType[]
-    species: NamedAPIResource
+    order?: number
+    past_abilities?: PastAbility[]
+    past_types?: PastType[]
+    species?: NamedAPIResource
     sprites: Sprites
     stats: Stat[]
     types: Type[]
-    weight: number
+    weight?: number
 }
 
 interface Ability {
     ability: NamedAPIResource
     is_hidden: boolean
-    slot: number
+    slot?: number
 }
 
 interface Cries {
     latest: string
-    legacy: string
+    legacy?: string
 }
 
 interface Form {
@@ -80,27 +80,27 @@ interface PastType {
 
 interface NamedAPIResource {
     name: string
-    url: string
+    url?: string
 }
 
 interface Sprites {
-    back_default: string | null
-    back_female: string | null
-    back_shiny: string | null
-    back_shiny_female: string | null
-    front_default: string | null
-    front_female: string | null
-    front_shiny: string | null
-    front_shiny_female: string | null
+    back_default?: string | null
+    back_female?: string | null
+    back_shiny?: string | null
+    back_shiny_female?: string | null
+    front_default?: string | null
+    front_female?: string | null
+    front_shiny?: string | null
+    front_shiny_female?: string | null
 }
 
 interface Stat {
     base_stat: number
-    effort: number
+    effort?: number
     stat: NamedAPIResource
 }
 
 interface Type {
-    slot: number
+    slot?: number
     type: NamedAPIResource
 }

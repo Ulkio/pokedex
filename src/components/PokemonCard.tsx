@@ -1,5 +1,4 @@
-import React from 'react'
-import { useNavigate, redirect } from 'react-router-dom'
+import { useNavigate } from 'react-router-dom'
 import { Pokemon } from 'types'
 import { colorTypesVariants } from 'utils'
 
@@ -16,7 +15,6 @@ export const PokemonCard = ({ poke, isDetails }: PokemonCardProps) => {
     return (
         <div
             onClick={() => handleClickCard(poke.id)}
-            key={poke.id}
             className={`${
                 isDetails &&
                 'w-full xl:w-1/2 h-full self-center flex justify-center items-center gap-8'
@@ -26,15 +24,18 @@ export const PokemonCard = ({ poke, isDetails }: PokemonCardProps) => {
             <div className='flex justify-center items-center gap-4'>
                 <p className='text-lg font-bold uppercase'>{poke.name}</p>
             </div>
-            {poke.sprites.front_default && (
-                <>
+            <>
+                {poke.sprites.front_default && (
                     <img
-                        src={poke.sprites.front_default!}
+                        data-testid={poke.name}
+                        src={poke.sprites.front_default}
                         alt={poke.name}
                         className={`${
                             isDetails ? 'size-80' : ' size-48 '
                         } group-hover:hidden transition-opacity duration-200 ease-in-out`}
                     />
+                )}
+                {poke.sprites.front_shiny && (
                     <img
                         src={poke.sprites.front_shiny!}
                         alt={poke.name}
@@ -42,8 +43,8 @@ export const PokemonCard = ({ poke, isDetails }: PokemonCardProps) => {
                             isDetails ? 'size-80' : ' size-48 '
                         } hidden group-hover:flex size-48`}
                     />
-                </>
-            )}
+                )}
+            </>
 
             <div className='flex flex-col md:flex-row  gap-2 '>
                 {poke.types.map(({ type }) => {
@@ -61,11 +62,11 @@ export const PokemonCard = ({ poke, isDetails }: PokemonCardProps) => {
             </div>
             {isDetails && (
                 <>
-                    <audio controls src={poke.cries.latest}></audio>
+                    <audio defaultValue={10} controls src={poke.cries.latest}></audio>
                     <div className='bg-slate-700 rounded-xl p-2 w-full lg:w-1/2 gap-2 flex flex-col'>
                         {poke.stats.map((stat) => {
                             return (
-                                <div className='flex justify-between'>
+                                <div key={stat.stat.name} className='flex justify-between'>
                                     <p className='uppercase w-1/3 border-b-[1px]'>
                                         {stat.stat.name}
                                     </p>

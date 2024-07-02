@@ -1,40 +1,42 @@
-import { QueryClient } from '@tanstack/react-query'
 import { getPokemonById } from 'api'
-import { QueryClientProvider, useQuery } from '@tanstack/react-query'
+import { useQuery } from '@tanstack/react-query'
 import { useNavigate, useParams } from 'react-router-dom'
 import PokemonCard from 'components/PokemonCard'
 
-const queryClient = new QueryClient()
-
 const PokemonDetails = () => {
-    const { id } = useParams()
+    const { id } = useParams<{ id: string }>()
     const navigate = useNavigate()
     const handleBackToHomepage = () => {
         navigate('/')
     }
 
     const fetchPokemon = async () => {
-        if (!id) return
+        if (!id) throw new Error('No ID provided')
         const { data } = await getPokemonById(id)
         return data
     }
-    const { data, error, status } = useQuery({
-        queryKey: ['pokemon'],
+    const { data, error, isLoading } = useQuery({
+        queryKey: ['pokemon', id],
         queryFn: fetchPokemon
     })
-    console.log(data)
+
+    if (isLoading) return <span>Loading...</span>
+    if (error)
+        return (
+            <span>
+                Error: {error instanceof Error ? error.message : 'An unknown error occurred'}
+            </span>
+        )
     return (
-        <QueryClientProvider client={queryClient}>
-            <div className='px-8 md:px-64 py-16  bg-black flex flex-col gap-16 min-h-screen'>
-                <p
-                    onClick={handleBackToHomepage}
-                    className='bg-slate-800 text-white rounded-xl w-fit px-4 py-2 font-bold uppercase absolute top-4 left-4 hover:cursor-pointer select-none'
-                >
-                    Home
-                </p>
-                {data && <PokemonCard poke={data} isDetails={true} />}
-            </div>
-        </QueryClientProvider>
+        <>
+            <p
+                onClick={handleBackToHomepage}
+                className='bg-slate-800 text-white rounded-xl w-fit px-4 py-2 font-bold uppercase absolute top-4 left-4 hover:cursor-pointer select-none'
+            >
+                Home
+            </p>
+            {data && <PokemonCard poke={data} isDetails={true} />}
+        </>
     )
 }
 
